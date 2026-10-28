@@ -43,6 +43,8 @@ shopHooks.viewItem = function (data) {
 
 
 /* ---------- À VOUS : écrivez vos crochets ci-dessous ---------- */
+
+/* Le dictionnaire : vocabulaire de la boutique → vocabulaire GA4 */
 function versItem(x) {
   return {
     item_id: x.sku,
@@ -54,16 +56,3 @@ function versItem(x) {
     quantity: x.quantity || 1   // 1 par défaut
   };
 }
-
-/* Vue d'un produit */
-shopHooks.viewItem = function (data) {
-  dataLayer.push({ ecommerce: null });
-  dataLayer.push({
-    event: "view_item",
-    ecommerce: {
-      currency: "EUR",
-      value: data.product.price,
-      items: [versItem(data.product)]
-    }
-  });
-};
