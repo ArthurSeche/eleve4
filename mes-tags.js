@@ -43,4 +43,27 @@ shopHooks.viewItem = function (data) {
 
 
 /* ---------- À VOUS : écrivez vos crochets ci-dessous ---------- */
+function versItem(x) {
+  return {
+    item_id: x.sku,
+    item_name: x.name,
+    item_brand: x.brand,
+    item_category: x.category,
+    item_variant: x.size,       // vide quand on regarde un produit sans taille choisie
+    price: x.price,
+    quantity: x.quantity || 1   // 1 par défaut
+  };
+}
 
+/* Vue d'un produit */
+shopHooks.viewItem = function (data) {
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: "view_item",
+    ecommerce: {
+      currency: "EUR",
+      value: data.product.price,
+      items: [versItem(data.product)]
+    }
+  });
+};
