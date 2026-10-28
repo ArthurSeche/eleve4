@@ -56,3 +56,17 @@ function versItem(x) {
     quantity: x.quantity || 1   // 1 par défaut
   };
 }
+
+/* Vue d'un produit */
+shopHooks.viewItem = function (data) {
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: "view_item",
+    ecommerce: {
+      currency: "EUR",
+      value: data.product.price,
+      items: [versItem(data.product)]
+    }
+  });
+};
+
